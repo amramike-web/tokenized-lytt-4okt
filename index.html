@@ -10,28 +10,85 @@
   h1 { font-size:1.3rem; margin:0 0 8px; }
   .note { color:#aaa; margin:0 0 20px; }
   section { background:#1c1c1c; border-radius:16px; padding:16px; margin:0 0 14px; }
+  section.na { outline:2px solid #4a8; }
   h2 { font-size:1.05rem; margin:0; }
   p { color:#bbb; margin:6px 0 12px; }
   audio { width:100%; height:48px; }
+  button { width:100%; font-size:1.05rem; padding:14px; border:0; border-radius:12px; background:#4a8; color:#111; font-weight:600; margin:0 0 8px; }
+  a { color:#8cf; }
 </style>
 </head>
 <body>
   <h1>Krypto, enkelt forklart</h1>
   <p class="note">Bare til gjennomlytting. Ikke til salg.</p>
   <section>
+    <button id="spill">▶ Spill hele boka</button>
+    <p>Spiller kapittel 1 til 11 etter hverandre. Neste kapittel starter automatisk. Totalt ca. 68 min.</p>
+    <p>Eller som én fil: <a href="hele-boka.mp3">hele boka (mp3, 94 MB)</a></p>
+  </section>
+  <section id="k1">
     <h2>Kapittel 1</h2>
-    <p>Slik bruker du kurset · 5 min 21 sek</p>
+    <p>Velkommen, og slik bruker du kurset · 5 min 20 sek</p>
     <audio controls preload="none" playsinline src="kapittel-1.mp3"></audio>
   </section>
-  <section>
+  <section id="k2">
     <h2>Kapittel 2</h2>
     <p>Penger og bitcoin · 10 min 55 sek</p>
     <audio controls preload="none" playsinline src="kapittel-2.mp3"></audio>
   </section>
-  <section>
+  <section id="k3">
+    <h2>Kapittel 3</h2>
+    <p>Å kjøpe trygt · 7 min 34 sek</p>
+    <audio controls preload="none" playsinline src="kapittel-3.mp3"></audio>
+  </section>
+  <section id="k4">
+    <h2>Kapittel 4</h2>
+    <p>Å passe på pengene selv · 7 min 4 sek</p>
+    <audio controls preload="none" playsinline src="kapittel-4.mp3"></audio>
+  </section>
+  <section id="k5">
+    <h2>Kapittel 5</h2>
+    <p>Svindel, sagt rett ut · 5 min 27 sek</p>
+    <audio controls preload="none" playsinline src="kapittel-5.mp3"></audio>
+  </section>
+  <section id="k6">
+    <h2>Kapittel 6</h2>
+    <p>Markedet og svingninger · 6 min 46 sek</p>
+    <audio controls preload="none" playsinline src="kapittel-6.mp3"></audio>
+  </section>
+  <section id="k7">
     <h2>Kapittel 7</h2>
-    <p>Skatt og notater · 6 min 40 sek</p>
+    <p>Skatt og notater · 6 min 39 sek</p>
     <audio controls preload="none" playsinline src="kapittel-7.mp3"></audio>
   </section>
+  <section id="k8">
+    <h2>Kapittel 8</h2>
+    <p>Nitti rolige dager · 5 min 55 sek</p>
+    <audio controls preload="none" playsinline src="kapittel-8.mp3"></audio>
+  </section>
+  <section id="k9">
+    <h2>Kapittel 9</h2>
+    <p>Ti ting folk tar feil av · 6 min 0 sek</p>
+    <audio controls preload="none" playsinline src="kapittel-9.mp3"></audio>
+  </section>
+  <section id="k10">
+    <h2>Kapittel 10</h2>
+    <p>Ord, kilder og fem setninger · 5 min 51 sek</p>
+    <audio controls preload="none" playsinline src="kapittel-10.mp3"></audio>
+  </section>
+  <section id="k11">
+    <h2>Kapittel 11</h2>
+    <p>Avslutning · 0 min 52 sek</p>
+    <audio controls preload="none" playsinline src="kapittel-11.mp3"></audio>
+  </section>
+<script>
+const a=[...document.querySelectorAll('section[id] audio')];
+function mark(i){document.querySelectorAll('section.na').forEach(s=>s.classList.remove('na'));a[i].parentNode.classList.add('na');}
+a.forEach((x,i)=>{
+  x.addEventListener('play',()=>{a.forEach(o=>{if(o!==x)o.pause();});mark(i);});
+  x.addEventListener('ended',()=>{if(a[i+1]){a[i+1].preload='auto';a[i+1].currentTime=0;a[i+1].play();a[i+1].parentNode.scrollIntoView({behavior:'smooth',block:'center'});}});
+});
+document.getElementById('spill').onclick=()=>{a[0].currentTime=0;a[0].play();};
+</script>
 </body>
 </html>
